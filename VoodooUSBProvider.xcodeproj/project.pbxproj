@@ -33,6 +33,7 @@
 		BC7D40A525E61AB0002ABF23 /* VoodooUSBProvider8.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooUSBProvider8.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7D40B725E61C7C002ABF23 /* VoodooUSBProvider11.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooUSBProvider11.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7D40C425E61F9B002ABF23 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		BC7D410B25E6A05A002ABF23 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +64,7 @@
 		BC7D407F25E4A880002ABF23 = {
 			isa = PBXGroup;
 			children = (
+				BC7D410B25E6A05A002ABF23 /* README.md */,
 				BC7D409C25E4ACC9002ABF23 /* MacKernelSDK */,
 				BC7D408B25E4A880002ABF23 /* VoodooUSBProvider */,
 				BC7D408A25E4A880002ABF23 /* Products */,
