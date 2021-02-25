@@ -139,6 +139,7 @@ public:
     
     bool findPipe(VoodooUSBPipe * pipe, uint8_t type, uint8_t direction);
     
+    IOReturn resetDevice();
     IOReturn hciCommand(void * command, UInt16 length);
     IOReturn sendHCIRequest(UInt16 opCode, UInt8 paramLen, const void * param);
 };

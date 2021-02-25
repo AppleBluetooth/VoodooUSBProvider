@@ -90,12 +90,6 @@ inline IOReturn VoodooUSBDevice::getDeviceStatus(IOService * forClient, USBStatu
 
 inline IOReturn VoodooUSBDevice::resetDevice()
 {
-    VoodooUSBInterface * interface = (VoodooUSBInterface *) IOMalloc(sizeof(VoodooUSBInterface));
-    
-    interface->sendHCIRequest(HCI_OP_RESET, 0, NULL);
-    
-    IOFree(interface, sizeof(VoodooUSBInterface));
-
     return m_pDevice->ResetDevice();
 }
 
@@ -271,6 +265,11 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
     }
     VoodooUSBErrorLog("findPipe() - No matching endpoint found!!!\n");
     return false;
+}
+
+IOReturn VoodooUSBInterface::resetDevice()
+{
+    return sendHCIRequest(HCI_OP_RESET, 0, NULL);
 }
 
 IOReturn VoodooUSBInterface::hciCommand(void * command, UInt16 length)
