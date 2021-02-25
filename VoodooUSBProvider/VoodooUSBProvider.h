@@ -96,7 +96,7 @@ public:
     IOReturn getConfiguration(IOService * forClient, UInt8 * configNumber);
     IOReturn setConfiguration(IOService * forClient, UInt8 configValue, bool startInterfaceMatching = true);
     
-    bool findFirstInterface(VoodooUSBInterface * interface);
+    IOService * findFirstInterface(VoodooUSBInterface * interface);
     
     bool open(IOService * forClient, IOOptionBits options = 0, void * arg = 0 );
     void close(IOService * forClient, IOOptionBits options = 0);
@@ -138,8 +138,6 @@ public:
 #endif
     
     bool findPipe(VoodooUSBPipe * pipe, uint8_t type, uint8_t direction);
-    
-    IOReturn resetDevice();
     
     IOReturn hciCommand(void * command, UInt16 length);
     IOReturn sendHCIRequest(UInt16 opCode, UInt8 paramLen, const void * param);

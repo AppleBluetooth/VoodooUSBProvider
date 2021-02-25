@@ -36,7 +36,7 @@ VoodooUSBDevice::~VoodooUSBDevice()
     OSSafeReleaseNULL(m_pDevice);
 }
 
-inline void VoodooUSBDevice::setDevice(IOService * provider)
+void VoodooUSBDevice::setDevice(IOService * provider)
 {
     OSSafeReleaseNULL(m_pDevice);
     
@@ -73,47 +73,53 @@ inline void VoodooUSBDevice::removeProperty(const char * name)
     m_pDevice->removeProperty(name);
 }
 
-IOReturn VoodooUSBDevice::getStringDescriptor(UInt8 index, char * buf, int maxLen, UInt16 lang)
+inline IOReturn VoodooUSBDevice::getStringDescriptor(UInt8 index, char * buf, int maxLen, UInt16 lang)
 {
     return m_pDevice->GetStringDescriptor(index, buf, maxLen, lang);
 }
 
-UInt16 VoodooUSBDevice::getDeviceRelease()
+inline UInt16 VoodooUSBDevice::getDeviceRelease()
 {
     return m_pDevice->GetDeviceRelease();
 }
 
-IOReturn VoodooUSBDevice::getDeviceStatus(IOService * forClient, USBStatus * status)
+inline IOReturn VoodooUSBDevice::getDeviceStatus(IOService * forClient, USBStatus * status)
 {
     return m_pDevice->GetDeviceStatus(status);
 }
 
-IOReturn VoodooUSBDevice::resetDevice()
+inline IOReturn VoodooUSBDevice::resetDevice()
 {
+    VoodooUSBInterface * interface = (VoodooUSBInterface *) IOMalloc(sizeof(VoodooUSBInterface));
+    
+    interface->sendHCIRequest(HCI_OP_RESET, 0, NULL);
+    
+    IOFree(interface, sizeof(VoodooUSBInterface));
+
     return m_pDevice->ResetDevice();
 }
 
-UInt8 VoodooUSBDevice::getNumConfigurations()
+inline UInt8 VoodooUSBDevice::getNumConfigurations()
 {
     return m_pDevice->GetNumConfigurations();
 }
 
-const USBConfigurationDescriptor* VoodooUSBDevice::getFullConfigurationDescriptor(UInt8 configIndex)
+inline const USBConfigurationDescriptor* VoodooUSBDevice::getFullConfigurationDescriptor(UInt8 configIndex)
 {
     return m_pDevice->GetFullConfigurationDescriptor(configIndex);
 }
 
-IOReturn VoodooUSBDevice::getConfiguration(IOService * forClient, UInt8 * configNumber)
+inline IOReturn VoodooUSBDevice::getConfiguration(IOService * forClient, UInt8 * configNumber)
 {
     return m_pDevice->GetConfiguration(configNumber);
 }
 
-IOReturn VoodooUSBDevice::setConfiguration(IOService * forClient, UInt8 configValue, bool startInterfaceMatching)
+inline IOReturn VoodooUSBDevice::setConfiguration(IOService * forClient, UInt8 configValue, bool startInterfaceMatching)
 {
     return m_pDevice->SetConfiguration(forClient, configValue, startInterfaceMatching);
 }
 
-bool VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
+IOService * VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
 {
     FuncLog("findFirstInterface");
     IOUSBFindInterfaceRequest request =
@@ -132,26 +138,27 @@ bool VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
     return result;
 }
 
-bool VoodooUSBDevice::open(IOService * forClient, IOOptionBits options, void * arg)
+inline bool VoodooUSBDevice::open(IOService * forClient, IOOptionBits options, void * arg)
 {
     return m_pDevice->open(forClient, options, arg);
 }
 
-void VoodooUSBDevice::close(IOService * forClient, IOOptionBits options)
+inline void VoodooUSBDevice::close(IOService * forClient, IOOptionBits options)
 {
     return m_pDevice->close(forClient, options);
 }
 
-UInt8 VoodooUSBDevice::getManufacturerStringIndex()
+inline UInt8 VoodooUSBDevice::getManufacturerStringIndex()
 {
     return m_pDevice->GetManufacturerStringIndex();
 }
 
-UInt8 VoodooUSBDevice::getProductStringIndex()
+inline UInt8 VoodooUSBDevice::getProductStringIndex()
 {
     return m_pDevice->GetProductStringIndex();
 }
-UInt8 VoodooUSBDevice::getSerialNumberStringIndex()
+
+inline UInt8 VoodooUSBDevice::getSerialNumberStringIndex()
 {
     return m_pDevice->GetSerialNumberStringIndex();
 }
@@ -201,7 +208,7 @@ VoodooUSBInterface::~VoodooUSBInterface()
     OSSafeReleaseNULL(m_pInterface);
 }
 
-inline void VoodooUSBInterface::setInterface(IOService * interface)
+void VoodooUSBInterface::setInterface(IOService * interface)
 {
     OSSafeReleaseNULL(m_pInterface);
 
@@ -218,28 +225,28 @@ inline bool VoodooUSBInterface::open(IOService * forClient, IOOptionBits options
     return m_pInterface->open(forClient, options, arg);
 }
 
-void VoodooUSBInterface::close(IOService * forClient, IOOptionBits options)
+inline void VoodooUSBInterface::close(IOService * forClient, IOOptionBits options)
 {
     m_pInterface->close(forClient, options);
 }
 
 #ifdef DEBUG
-UInt8 VoodooUSBInterface::getInterfaceNumber()
+inline UInt8 VoodooUSBInterface::getInterfaceNumber()
 {
     return m_pInterface->GetInterfaceNumber();
 }
 
-UInt8 VoodooUSBInterface::getInterfaceClass()
+inline UInt8 VoodooUSBInterface::getInterfaceClass()
 {
     return m_pInterface->GetInterfaceClass();
 }
 
-UInt8 VoodooUSBInterface::getInterfaceSubClass()
+inline UInt8 VoodooUSBInterface::getInterfaceSubClass()
 {
     return m_pInterface->GetInterfaceSubClass();
 }
 
-UInt8 VoodooUSBInterface::getInterfaceProtocol()
+inline UInt8 VoodooUSBInterface::getInterfaceProtocol()
 {
     return m_pInterface->GetInterfaceProtocol();
 }
@@ -254,7 +261,9 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
         .direction = direction
     };
     
-    if ((IOUSBPipe * tempPipe = m_pInterface->FindNextPipe(NULL, &findEndpointRequest)))
+    IOUSBPipe * tempPipe;
+    
+    if ((tempPipe = m_pInterface->FindNextPipe(NULL, &findEndpointRequest)))
     {
         DebugLog("findPipe(): Found matching endpoint!\n");
         pipe->setPipe(tempPipe);
@@ -262,11 +271,6 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
     }
     DebugLog("findPipe(): No matching endpoint found!\n");
     return false;
-}
-
-IOReturn VoodooUSBInterface::resetDevice()
-{
-    return hciCommand(&HCI_RESET, sizeof(HCI_RESET));
 }
 
 IOReturn VoodooUSBInterface::hciCommand(void * command, UInt16 length)
@@ -325,27 +329,27 @@ void VoodooUSBPipe::setPipe(OSObject * pipe)
     }
 }
 
-IOReturn VoodooUSBPipe::abort()
+inline IOReturn VoodooUSBPipe::abort()
 {
     return m_pPipe->Abort();
 }
 
-IOReturn VoodooUSBPipe::read(IOMemoryDescriptor * buffer, UInt32 noDataTimeout, UInt32 completionTimeout, IOByteCount reqCount, USBCompletion *	completion, IOByteCount * bytesRead)
+inline IOReturn VoodooUSBPipe::read(IOMemoryDescriptor * buffer, UInt32 noDataTimeout, UInt32 completionTimeout, IOByteCount reqCount, USBCompletion *	completion, IOByteCount * bytesRead)
 {
     return m_pPipe->Read(buffer, noDataTimeout, completionTimeout, reqCount, completion, bytesRead);
 }
 
-IOReturn VoodooUSBPipe::write(IOMemoryDescriptor * buffer, UInt32 noDataTimeout, UInt32 completionTimeout, IOByteCount reqCount, USBCompletion *	completion)
+inline IOReturn VoodooUSBPipe::write(IOMemoryDescriptor * buffer, UInt32 noDataTimeout, UInt32 completionTimeout, IOByteCount reqCount, USBCompletion *	completion)
 {
     return m_pPipe->Write(buffer, noDataTimeout, completionTimeout, reqCount, completion);
 }
 
-const USBEndpointDescriptor* VoodooUSBPipe::getEndpointDescriptor()
+inline const USBEndpointDescriptor* VoodooUSBPipe::getEndpointDescriptor()
 {
     return m_pPipe->GetEndpointDescriptor();
 }
 
-IOReturn VoodooUSBPipe::clearStall()
+inline IOReturn VoodooUSBPipe::clearStall()
 {
     return m_pPipe->Reset();
 }
