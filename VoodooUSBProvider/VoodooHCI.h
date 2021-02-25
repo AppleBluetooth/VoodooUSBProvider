@@ -24,7 +24,6 @@
  *
  */
 
-
 #ifndef VoodooHCI_h
 #define VoodooHCI_h
 
