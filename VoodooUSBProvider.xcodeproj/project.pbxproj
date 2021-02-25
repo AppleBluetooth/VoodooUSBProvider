@@ -23,7 +23,6 @@
 
 /* Begin PBXFileReference section */
 		BC7D408925E4A880002ABF23 /* VoodooUSBProvider15.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooUSBProvider15.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC7D409025E4A880002ABF23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC7D409625E4A97C002ABF23 /* VoodooUSBHostProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooUSBHostProvider.cpp; sourceTree = "<group>"; };
 		BC7D409725E4A97C002ABF23 /* VodooUSBProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VodooUSBProvider.cpp; sourceTree = "<group>"; };
 		BC7D409825E4A97C002ABF23 /* VoodooUSBProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoodooUSBProvider.h; sourceTree = "<group>"; };
@@ -88,7 +87,6 @@
 				BC7D409825E4A97C002ABF23 /* VoodooUSBProvider.h */,
 				BC7D409625E4A97C002ABF23 /* VoodooUSBHostProvider.cpp */,
 				BC7D409725E4A97C002ABF23 /* VodooUSBProvider.cpp */,
-				BC7D409025E4A880002ABF23 /* Info.plist */,
 			);
 			path = VoodooUSBProvider;
 			sourceTree = "<group>";
@@ -395,13 +393,13 @@
 					"DEBUG=1",
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
-				INFOPLIST_FILE = VoodooUSBProvider/Info.plist;
+				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_NAME = com.cjiang.VoodooUSBProvider;
 				MODULE_VERSION = 1.0.0d1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cjiang.VoodooUSBProvider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjiang.VoodooUSBProvider15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
 			};
@@ -415,13 +413,13 @@
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_CATALINA=1";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
-				INFOPLIST_FILE = VoodooUSBProvider/Info.plist;
+				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_NAME = com.cjiang.VoodooUSBProvider;
 				MODULE_VERSION = 1.0.0d1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cjiang.VoodooUSBProvider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjiang.VoodooUSBProvider15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
 			};
@@ -438,13 +436,13 @@
 					"DEBUG=1",
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
-				INFOPLIST_FILE = VoodooUSBProvider/Info.plist;
+				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_NAME = com.cjiang.VoodooUSBProviderLegacy;
 				MODULE_VERSION = 1.0.0d1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cjiang.VoodooUSBProviderLegacy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjiang.VoodooUSBProvider8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
 			};
@@ -458,13 +456,13 @@
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_MAVERICKS=1";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
-				INFOPLIST_FILE = VoodooUSBProvider/Info.plist;
+				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MODULE_NAME = com.cjiang.VoodooUSBProviderLegacy;
 				MODULE_VERSION = 1.0.0d1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cjiang.VoodooUSBProviderLegacy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cjiang.VoodooUSBProvider8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
 			};
@@ -481,7 +479,7 @@
 					"DEBUG=1",
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
-				INFOPLIST_FILE = VoodooUSBProvider/Info.plist;
+				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -501,7 +499,7 @@
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_ELCAPITAN=1";
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
-				INFOPLIST_FILE = VoodooUSBProvider/Info.plist;
+				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
