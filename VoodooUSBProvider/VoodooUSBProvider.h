@@ -110,6 +110,12 @@ public:
     IOReturn sendVendorRequestOut(IOService * forClient, UInt8 bRequest, void * dataBuffer, UInt16 size);
     IOReturn sendStandardRequestIn(IOService * forClient, UInt8 bRequest, void * dataBuffer, UInt16 size);
     IOReturn sendStandardRequestOut(IOService * forClient, UInt8 bRequest, void * dataBuffer, UInt16 size);
+    IOReturn sendHCIRequest(IOService * forClient, UInt16 opCode, UInt8 paramLen, const void * param, UInt8 direction);
+    IOReturn sendHCIRequestIn(IOService * forClient, UInt16 opCode, UInt8 paramLen, const void * param);
+    IOReturn sendHCIRequestOut(IOService * forClient, UInt16 opCode, UInt8 paramLen, const void * param);
+    IOReturn sendHCICommand(IOService * forClient, void * command, UInt16 length, UInt8 direction);
+    IOReturn sendHCICommandIn(IOService * forClient, void * command, UInt16 length);
+    IOReturn sendHCICommandOut(IOService * forClient, void * command, UInt16 length);
 };
 
 class VoodooUSBInterface
@@ -137,11 +143,7 @@ public:
     UInt8 getInterfaceProtocol();
 #endif
     
-    bool findPipe(VoodooUSBPipe * pipe, uint8_t type, uint8_t direction);
-    
-    IOReturn resetDevice();
-    IOReturn hciCommand(void * command, UInt16 length);
-    IOReturn sendHCIRequest(UInt16 opCode, UInt8 paramLen, const void * param);
+    bool findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direction);
 };
 
 class VoodooUSBPipe

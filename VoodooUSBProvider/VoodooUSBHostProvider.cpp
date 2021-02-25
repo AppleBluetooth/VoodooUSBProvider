@@ -91,7 +91,7 @@ IOReturn VoodooUSBDevice::getStringDescriptor(UInt8 index, char * buf, int maxLe
     }
     
     size_t utf8len = 0;
-    utf8_encodestr(reinterpret_cast<const u_int16_t*> (desc->bString), desc->bLength - StandardUSB::kDescriptorSize, reinterpret_cast<u_int8_t*> (buf), &utf8len, maxLen, '/', UTF_LITTLE_ENDIAN);
+    utf8_encodestr(reinterpret_cast<const u_int16_t *> (desc->bString), desc->bLength - StandardUSB::kDescriptorSize, reinterpret_cast<u_int8_t *> (buf), &utf8len, maxLen, '/', UTF_LITTLE_ENDIAN);
     
     VoodooUSBSafeDeleteNULL(desc);
     return kIOReturnSuccess;
@@ -104,7 +104,7 @@ inline UInt16 VoodooUSBDevice::getDeviceRelease()
 
 inline IOReturn VoodooUSBDevice::getDeviceStatus(IOService * forClient, USBStatus * status)
 {
-    uint16_t stat;
+    UInt16 stat;
     IOReturn result = sendStandardRequestIn(forClient, kDeviceRequestGetStatus, &stat, sizeof(stat));
     *status = stat;
     return result;
@@ -112,6 +112,8 @@ inline IOReturn VoodooUSBDevice::getDeviceStatus(IOService * forClient, USBStatu
 
 inline IOReturn VoodooUSBDevice::resetDevice()
 {
+    sendHCIRequestOut((IOService *) this, HCI_OP_RESET, 0, NULL);
+    
     // Setting configuration value 0 (unconfigured) releases all opened interfaces / pipes
     m_pDevice->setConfiguration(0);
     return kIOReturnSuccess;
@@ -204,14 +206,14 @@ IOReturn VoodooUSBDevice::sendRequest(IOService * forClient, UInt8 bRequest, voi
     
     StandardUSB::DeviceRequest request =
     {
-        .bmRequestType  = static_cast <UInt8> (USBmakebmRequestType( direction, type, recipient )),
+        .bmRequestType  = static_cast <UInt8> (USBmakebmRequestType(direction, type, recipient)),
         .bRequest       = bRequest,
         .wValue         = 0,
         .wIndex         = 0,
         .wLength        = size
     };
     
-    return m_pDevice->deviceRequest( forClient, request, dataBuffer, bytesTransferred, kUSBHostStandardRequestCompletionTimeout );
+    return m_pDevice->deviceRequest(forClient, request, dataBuffer, bytesTransferred, kUSBHostStandardRequestCompletionTimeout);
 }
 
 inline IOReturn VoodooUSBDevice::sendVendorRequestIn(IOService * forClient, UInt8 bRequest, void * dataBuffer, UInt16 size)
@@ -232,6 +234,64 @@ inline IOReturn VoodooUSBDevice::sendStandardRequestIn(IOService * forClient, UI
 inline IOReturn VoodooUSBDevice::sendStandardRequestOut(IOService * forClient, UInt8 bRequest, void * dataBuffer, UInt16 size)
 {
    return sendRequest(forClient, bRequest, dataBuffer, size, kRequestDirectionOut, kRequestTypeStandard, kRequestRecipientDevice);
+}
+
+IOReturn VoodooUSBDevice::sendHCIRequest(IOService * forClient, UInt16 opCode, UInt8 paramLen, const void * param, UInt8 direction)
+{
+    UInt32 bytesTransferred;
+    
+    HciCommandHdr * command = NULL;
+    bzero(command, sizeof(HciCommandHdr));
+    command->opCode = opCode;
+    command->pLength = paramLen;
+    memcpy((void *) command->pData, param, paramLen);
+    
+    StandardUSB::DeviceRequest request =
+    {
+        .bmRequestType = makeDeviceRequestbmRequestType((tDeviceRequestDirection) direction, kRequestTypeClass, kRequestRecipientDevice),
+        .bRequest = 0,
+        .wValue = 0,
+        .wIndex = 0,
+        .wLength = (UInt16)(HCI_COMMAND_HDR_SIZE + paramLen)
+    };
+    
+    return m_pDevice->deviceRequest(forClient, request, (void *) command, bytesTransferred);
+}
+
+inline IOReturn VoodooUSBDevice::sendHCIRequestIn(IOService * forClient, UInt16 opCode, UInt8 paramLen, const void * param)
+{
+    return sendHCIRequest(forClient, opCode, paramLen, param, kRequestDirectionIn);
+}
+
+inline IOReturn VoodooUSBDevice::sendHCIRequestOut(IOService * forClient, UInt16 opCode, UInt8 paramLen, const void * param)
+{
+    return sendHCIRequest(forClient, opCode, paramLen, param, kRequestDirectionOut);
+}
+
+IOReturn VoodooUSBDevice::sendHCICommand(IOService * forClient, void * command, UInt16 length, UInt8 direction)
+{
+    UInt32 bytesTransfered;
+    
+    StandardUSB::DeviceRequest request =
+    {
+        .bmRequestType = makeDeviceRequestbmRequestType((tDeviceRequestDirection) direction, kRequestTypeClass, kRequestRecipientDevice),
+        .bRequest = 0,
+        .wValue = 0,
+        .wIndex = 0,
+        .wLength = length
+    };
+    
+    return m_pDevice->deviceRequest(forClient, request, command, bytesTransfered, 0);
+}
+
+inline IOReturn VoodooUSBDevice::sendHCICommandIn(IOService * forClient, void * command, UInt16 length)
+{
+    return sendHCICommand(forClient, command, length, kRequestDirectionIn);
+}
+
+inline IOReturn VoodooUSBDevice::sendHCICommandOut(IOService * forClient, void * command, UInt16 length)
+{
+    return sendHCICommand(forClient, command, length, kRequestDirectionOut);
 }
 
 VoodooUSBInterface::VoodooUSBInterface()
@@ -256,12 +316,12 @@ void VoodooUSBInterface::setInterface(IOService * interface)
     }
 }
 
-inline bool VoodooUSBInterface::open(IOService *forClient, IOOptionBits options, void *arg)
+inline bool VoodooUSBInterface::open(IOService * forClient, IOOptionBits options, void * arg)
 {
     return m_pInterface->open(forClient, options, arg);
 }
 
-inline void VoodooUSBInterface::close(IOService *forClient, IOOptionBits options)
+inline void VoodooUSBInterface::close(IOService * forClient, IOOptionBits options)
 {
     if (m_pInterface->isOpen(m_pInterface))
     {
@@ -328,55 +388,12 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
             
             // set it in the pipe
             pipe->setPipe(tempPipe);
-            tempPipe->release();
+            OSSafeReleaseNULL(tempPipe);
             return true;
         }
     }
     VoodooUSBErrorLog("findPipe() - No matching endpoint found!!!\n");
     return false;
-}
-
-inline IOReturn VoodooUSBInterface::resetDevice()
-{
-    return sendHCIRequest(HCI_OP_RESET, 0, NULL);
-}
-
-IOReturn VoodooUSBInterface::hciCommand(void * command, UInt16 length)
-{
-    UInt32 bytesTransfered;
-    
-    StandardUSB::DeviceRequest request =
-    {
-        .bmRequestType = makeDeviceRequestbmRequestType(kRequestDirectionOut, kRequestTypeClass, kRequestRecipientDevice),
-        .bRequest = 0,
-        .wValue = 0,
-        .wIndex = 0,
-        .wLength = length
-    };
-    
-    return m_pInterface->deviceRequest(request, command, bytesTransfered, 0);
-}
-
-IOReturn VoodooUSBInterface::sendHCIRequest(uint16_t opCode, uint8_t paramLen, const void * param)
-{
-    UInt32 bytesTransfered;
-    
-    HciCommandHdr * command = NULL;
-    bzero(command, sizeof( HciCommandHdr ));
-    command->opCode = opCode;
-    command->pLength = paramLen;
-    memcpy((void *) command->pData, param, paramLen);
-    
-    StandardUSB::DeviceRequest request =
-    {
-        .bmRequestType = makeDeviceRequestbmRequestType(kRequestDirectionOut, kRequestTypeClass, kRequestRecipientDevice),
-        .bRequest = 0,
-        .wValue = 0,
-        .wIndex = 0,
-        .wLength = (uint16_t)(HCI_COMMAND_HDR_SIZE + paramLen)
-    };
-    
-    return m_pInterface->deviceRequest(request, (void *) command, bytesTransfered);
 }
 
 VoodooUSBPipe::VoodooUSBPipe()
@@ -410,11 +427,11 @@ IOReturn VoodooUSBPipe::read(IOMemoryDescriptor * buffer, UInt32 noDataTimeout, 
 {
     if (completion)
     {
-        return m_pPipe->io(buffer, (uint32_t) reqCount, completion, completionTimeout);
+        return m_pPipe->io(buffer, (UInt32) reqCount, completion, completionTimeout);
     }
         
-    uint32_t bytesTransfered;
-    IOReturn result = m_pPipe->io(buffer, (uint32_t) reqCount, bytesTransfered, completionTimeout);
+    UInt32 bytesTransfered;
+    IOReturn result = m_pPipe->io(buffer, (UInt32) reqCount, bytesTransfered, completionTimeout);
     if (bytesRead)
     {
         *bytesRead = bytesTransfered;
@@ -426,14 +443,14 @@ IOReturn VoodooUSBPipe::write(IOMemoryDescriptor * buffer, UInt32 noDataTimeout,
 {
     if (completion)
     {
-        return m_pPipe->io(buffer, (uint32_t) reqCount, completion, completionTimeout);
+        return m_pPipe->io(buffer, (UInt32) reqCount, completion, completionTimeout);
     }
     
-    uint32_t bytesTransfered;
-    return m_pPipe->io(buffer, (uint32_t) reqCount, bytesTransfered, completionTimeout);
+    UInt32 bytesTransfered;
+    return m_pPipe->io(buffer, (UInt32) reqCount, bytesTransfered, completionTimeout);
 }
 
-inline const USBEndpointDescriptor* VoodooUSBPipe::getEndpointDescriptor()
+inline const USBEndpointDescriptor * VoodooUSBPipe::getEndpointDescriptor()
 {
     return m_pPipe->getEndpointDescriptor();
 }
