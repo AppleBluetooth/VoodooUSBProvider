@@ -139,7 +139,10 @@ inline bool VoodooUSBDevice::open(IOService * forClient, IOOptionBits options, v
 
 inline void VoodooUSBDevice::close(IOService * forClient, IOOptionBits options)
 {
-    return m_pDevice->close(forClient, options);
+    if (m_pDevice->isOpen(m_pDevice))
+    {
+        m_pDevice->close(forClient, options);
+    }
 }
 
 inline UInt8 VoodooUSBDevice::getManufacturerStringIndex()
@@ -221,7 +224,10 @@ inline bool VoodooUSBInterface::open(IOService * forClient, IOOptionBits options
 
 inline void VoodooUSBInterface::close(IOService * forClient, IOOptionBits options)
 {
-    m_pInterface->close(forClient, options);
+    if (m_pInterface->isOpen(m_pInterface))
+    {
+        m_pInterface->close(forClient, options);
+    }
 }
 
 #ifdef DEBUG

@@ -263,7 +263,10 @@ inline bool VoodooUSBInterface::open(IOService *forClient, IOOptionBits options,
 
 inline void VoodooUSBInterface::close(IOService *forClient, IOOptionBits options)
 {
-    m_pInterface->close(forClient, options);
+    if (m_pInterface->isOpen(m_pInterface))
+    {
+        m_pInterface->close(forClient, options);
+    }
 }
 
 #ifdef DEBUG
