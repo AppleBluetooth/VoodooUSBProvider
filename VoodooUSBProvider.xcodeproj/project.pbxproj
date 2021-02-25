@@ -16,9 +16,9 @@
 		BC7D40C125E61D11002ABF23 /* VoodooHCI.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D409E25E5E933002ABF23 /* VoodooHCI.h */; };
 		BC7D40C225E61D11002ABF23 /* VoodooUSBProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D409825E4A97C002ABF23 /* VoodooUSBProvider.h */; };
 		BC7D40C325E61D17002ABF23 /* VoodooUSBHostProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC7D409625E4A97C002ABF23 /* VoodooUSBHostProvider.cpp */; };
-		BC7D40C525E61F9B002ABF23 /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D40C425E61F9B002ABF23 /* Common.h */; };
-		BC7D40C625E61F9B002ABF23 /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D40C425E61F9B002ABF23 /* Common.h */; };
-		BC7D40C725E61F9B002ABF23 /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D40C425E61F9B002ABF23 /* Common.h */; };
+		BC7D40C525E61F9B002ABF23 /* VoodooUSBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D40C425E61F9B002ABF23 /* VoodooUSBCommon.h */; };
+		BC7D40C625E61F9B002ABF23 /* VoodooUSBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D40C425E61F9B002ABF23 /* VoodooUSBCommon.h */; };
+		BC7D40C725E61F9B002ABF23 /* VoodooUSBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D40C425E61F9B002ABF23 /* VoodooUSBCommon.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		BC7D409E25E5E933002ABF23 /* VoodooHCI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoodooHCI.h; sourceTree = "<group>"; };
 		BC7D40A525E61AB0002ABF23 /* VoodooUSBProvider8.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooUSBProvider8.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7D40B725E61C7C002ABF23 /* VoodooUSBProvider11.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooUSBProvider11.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC7D40C425E61F9B002ABF23 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		BC7D40C425E61F9B002ABF23 /* VoodooUSBCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoodooUSBCommon.h; sourceTree = "<group>"; };
 		BC7D410B25E6A05A002ABF23 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +83,7 @@
 		BC7D408B25E4A880002ABF23 /* VoodooUSBProvider */ = {
 			isa = PBXGroup;
 			children = (
-				BC7D40C425E61F9B002ABF23 /* Common.h */,
+				BC7D40C425E61F9B002ABF23 /* VoodooUSBCommon.h */,
 				BC7D409E25E5E933002ABF23 /* VoodooHCI.h */,
 				BC7D409825E4A97C002ABF23 /* VoodooUSBProvider.h */,
 				BC7D409625E4A97C002ABF23 /* VoodooUSBHostProvider.cpp */,
@@ -100,7 +100,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC7D40C525E61F9B002ABF23 /* Common.h in Headers */,
+				BC7D40C525E61F9B002ABF23 /* VoodooUSBCommon.h in Headers */,
 				BC7D409B25E4A97C002ABF23 /* VoodooUSBProvider.h in Headers */,
 				BC7D409F25E5E933002ABF23 /* VoodooHCI.h in Headers */,
 			);
@@ -110,7 +110,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC7D40C725E61F9B002ABF23 /* Common.h in Headers */,
+				BC7D40C725E61F9B002ABF23 /* VoodooUSBCommon.h in Headers */,
 				BC7D40AF25E61AE6002ABF23 /* VoodooHCI.h in Headers */,
 				BC7D40B025E61AE6002ABF23 /* VoodooUSBProvider.h in Headers */,
 			);
@@ -120,7 +120,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC7D40C625E61F9B002ABF23 /* Common.h in Headers */,
+				BC7D40C625E61F9B002ABF23 /* VoodooUSBCommon.h in Headers */,
 				BC7D40C125E61D11002ABF23 /* VoodooHCI.h in Headers */,
 				BC7D40C225E61D11002ABF23 /* VoodooUSBProvider.h in Headers */,
 			);

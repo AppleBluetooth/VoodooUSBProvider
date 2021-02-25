@@ -86,14 +86,14 @@ IOReturn VoodooUSBDevice::getStringDescriptor(UInt8 index, char * buf, int maxLe
     
     if (desc->bLength <= StandardUSB::kDescriptorSize)
     {
-        SafeDeleteNULL(desc);
+        VoodooUSBSafeDeleteNULL(desc);
         return kIOReturnBadArgument;
     }
     
     size_t utf8len = 0;
     utf8_encodestr(reinterpret_cast<const u_int16_t*> (desc->bString), desc->bLength - StandardUSB::kDescriptorSize, reinterpret_cast<u_int8_t*> (buf), &utf8len, maxLen, '/', UTF_LITTLE_ENDIAN);
     
-    SafeDeleteNULL(desc);
+    VoodooUSBSafeDeleteNULL(desc);
     return kIOReturnSuccess;
 }
 
@@ -146,9 +146,9 @@ inline IOReturn VoodooUSBDevice::setConfiguration(IOService * forClient, UInt8 c
     return m_pDevice->setConfiguration(configValue, startInterfaceMatching);
 }
 
-IOService * VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
+bool VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
 {
-    FuncLog("findFirstInterface");
+    VoodooUSBFuncLog("findFirstInterface");
     
     OSIterator * iterator = m_pDevice->getChildIterator(gIOServicePlane);
     
@@ -172,7 +172,7 @@ IOService * VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
     OSSafeReleaseNULL(iterator);
 
     IOService * result = interface->getInterface();
-    DebugLog("findFirstInterface(): getInterface() returns %p.\n", result);
+    VoodooUSBInfoLog("findFirstInterface() - getInterface() returns %p.\n", result);
     return result;
 }
 
@@ -293,31 +293,36 @@ inline UInt8 VoodooUSBInterface::getInterfaceProtocol()
 
 bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direction)
 {
-    DebugLog("findPipe(): direction = %d, type = %d\n", direction, type);
+    VoodooUSBInfoLog("findPipe() - direction = %d, type = %d\n", direction, type);
+    
     const StandardUSB::ConfigurationDescriptor * configDesc = m_pInterface->getConfigurationDescriptor();
     const StandardUSB::InterfaceDescriptor     * ifaceDesc  = m_pInterface->getInterfaceDescriptor();
+    
     if (!configDesc || !ifaceDesc)
     {
-        DebugLog("findPipe(): configDesc = %p, ifaceDesc = %p\n", configDesc, ifaceDesc);
+        VoodooUSBErrorLog("findPipe() - Descriptor(s) invalid!!!\n");
+        VoodooUSBInfoLog("findPipe() - configDesc = %p, ifaceDesc = %p\n", configDesc, ifaceDesc);
         return false;
     }
+    
     const EndpointDescriptor * ep = NULL;
     IOUSBHostPipe * tempPipe = NULL;
+    
     while ((ep = StandardUSB::getNextEndpointDescriptor(configDesc, ifaceDesc, ep)))
     {
         // check if endpoint matches type and direction
         UInt8 epDirection = StandardUSB::getEndpointDirection(ep);
         UInt8 epType      = StandardUSB::getEndpointType(ep);
-        DebugLog("findPipe(): Endpoint found: epDirection = %d, epType = %d\n", epDirection, epType);
+        VoodooUSBInfoLog("findPipe() - Endpoint found! epDirection = %d, epType = %d\n", epDirection, epType);
         if (direction == epDirection && type == epType)
         {
-            DebugLog("findPipe(): Found matching endpoint!\n");
+            VoodooUSBDebugLog("findPipe() - Found matching endpoint!\n");
             
             // matches... try to make a pipe from the endpoint address
             tempPipe = m_pInterface->copyPipe(StandardUSB::getEndpointAddress(ep));
             if (!tempPipe)
             {
-                ErrorLog("findPipe(): copyPipe() failed!!!\n");
+                VoodooUSBErrorLog("findPipe() - copyPipe() failed!!!\n");
                 return false;
             }
             
@@ -327,7 +332,7 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
             return true;
         }
     }
-    DebugLog("findPipe(): No matching endpoint found!\n");
+    VoodooUSBErrorLog("findPipe() - No matching endpoint found!!!\n");
     return false;
 }
 

@@ -119,9 +119,9 @@ inline IOReturn VoodooUSBDevice::setConfiguration(IOService * forClient, UInt8 c
     return m_pDevice->SetConfiguration(forClient, configValue, startInterfaceMatching);
 }
 
-IOService * VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
+bool VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
 {
-    FuncLog("findFirstInterface");
+    VoodooUSBFuncLog("findFirstInterface");
     IOUSBFindInterfaceRequest request =
     {
         .bAlternateSetting  = kIOUSBFindInterfaceDontCare,
@@ -131,10 +131,10 @@ IOService * VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
     };
     interface->setInterface(m_pDevice->FindNextInterface(NULL, &request));
     
-    DebugLog("findFirstInterface(): FindNextInterface() returns %p.\n", interface);
+    VoodooUSBInfoLog("findFirstInterface() - FindNextInterface() returns %p.\n", interface);
     
     IOService * result = interface->getInterface();
-    DebugLog("findFirstInterface(): getInterface returns %p.\n", result);
+    VoodooUSBInfoLog("findFirstInterface() - getInterface returns %p.\n", result);
     return result;
 }
 
@@ -254,7 +254,7 @@ inline UInt8 VoodooUSBInterface::getInterfaceProtocol()
 
 bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direction)
 {
-    DebugLog("findPipe(): direction = %d, type = %d\n", direction, type);
+    VoodooUSBInfoLog("findPipe() - direction = %d, type = %d\n", direction, type);
     IOUSBFindEndpointRequest findEndpointRequest =
     {
         .type = type,
@@ -265,11 +265,11 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
     
     if ((tempPipe = m_pInterface->FindNextPipe(NULL, &findEndpointRequest)))
     {
-        DebugLog("findPipe(): Found matching endpoint!\n");
+        VoodooUSBDebugLog("findPipe() - Found matching endpoint!\n");
         pipe->setPipe(tempPipe);
         return true;
     }
-    DebugLog("findPipe(): No matching endpoint found!\n");
+    VoodooUSBErrorLog("findPipe() - No matching endpoint found!!!\n");
     return false;
 }
 

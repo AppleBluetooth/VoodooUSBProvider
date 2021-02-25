@@ -27,7 +27,7 @@
 #ifndef VoodooUSBProvider_H
 #define VoodooUSBProvider_H
 
-#include "Common.h"
+#include "VoodooUSBCommon.h"
 #include "VoodooHCI.h"
 
 #include <IOKit/usb/USB.h>
@@ -96,7 +96,7 @@ public:
     IOReturn getConfiguration(IOService * forClient, UInt8 * configNumber);
     IOReturn setConfiguration(IOService * forClient, UInt8 configValue, bool startInterfaceMatching = true);
     
-    IOService * findFirstInterface(VoodooUSBInterface * interface);
+    bool findFirstInterface(VoodooUSBInterface * interface);
     
     bool open(IOService * forClient, IOOptionBits options = 0, void * arg = 0 );
     void close(IOService * forClient, IOOptionBits options = 0);
