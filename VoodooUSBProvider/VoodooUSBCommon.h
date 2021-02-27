@@ -24,8 +24,39 @@
  *
  */
 
-#ifndef VoodooUSBCommon_h
-#define VoodooUSBCommon_h
+#ifndef VoodooUSBCommom_H
+#define VoodooUSBCommon_H
+
+#include "VoodooHCI.h"
+#include <IOKit/usb/USB.h>
+
+#if defined(TARGET_ELCAPITAN) || defined(TARGET_CATALINA)
+
+#include <IOKit/usb/IOUSBHostInterface.h>
+#include <sys/utfconv.h>
+
+#define USBDevice                       IOUSBHostDevice
+#define USBInterface                    IOUSBHostInterface
+#define USBPipe                         IOUSBHostPipe
+
+#define USBCompletion                   IOUSBHostCompletion
+#define USBConfigurationDescriptor      StandardUSB::ConfigurationDescriptor
+#define USBEndpointDescriptor           StandardUSB::EndpointDescriptor
+#define USBStatus                       UInt16
+
+#else
+
+#include <IOKit/usb/IOUSBInterface.h>
+
+#define USBDevice                       IOUSBDevice
+#define USBInterface                    IOUSBInterface
+#define USBPipe                         IOUSBPipe
+
+#define USBCompletion                   IOUSBCompletion
+#define USBConfigurationDescriptor      IOUSBConfigurationDescriptor
+#define USBEndpointDescriptor           IOUSBEndpointDescriptor
+
+#endif
 
 #define VoodooUSBSafeDeleteNULL(x) do { if (x) { delete x; x = NULL; } } while (0)
 #define VoodooUSBSafeDeleteArrayNULL(x) do { if (x) { delete[] x; x = NULL; } } while (0)
@@ -45,4 +76,4 @@
 #define VoodooUSBWarningLog(args...) VoodooUSBDebugLog("Warning! " args)
 #define VoodooUSBFuncLog(args...) VoodooUSBDebugLog(args "()\n")
 
-#endif /* VoodooUSBCommon_h */
+#endif /* VoodooUSBCommon_H */
