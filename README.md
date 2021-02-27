@@ -13,6 +13,7 @@ To use this project, copy the header and c++ files into your project directory. 
 1. Add more HCI commands </br>
 2. Add more vendor requests </br>
 3. Add documentations </br>
+4. Make VoodooUSBProvider a sub-class to IOUSBProvider instead (about to be done. Need to override all functions of the super class for easier better user experience)
 
 ## Acknowledgements
 [Apple](https://www.apple.com) for macOS </br>
