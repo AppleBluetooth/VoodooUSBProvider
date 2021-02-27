@@ -25,7 +25,7 @@
  */
 
 #ifndef VoodooUSBCommom_H
-#define VoodooUSBCommon_H
+#define VoodooUSBCommom_H
 
 #include "VoodooHCI.h"
 #include <IOKit/usb/USB.h>
