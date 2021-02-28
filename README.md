@@ -14,19 +14,19 @@ To use this project, MacKernelSDK is needed as apple has removed a lot of code s
 5. Add Preprocessor Macros in the targets. </br>
 In the 10.8 one, make sure you add TARGET_MAVERICKS=1. </br>
 
-<img src="https://github.com/AppleBluetooth/VoodooUSBProvider/tree/master/Resources/TARGET_MAVERICKS.png"
+<img src="https://raw.githubusercontent.com/AppleBluetooth/VoodooUSBProvider/master/Resources/TARGET_MAVERICKS.png"
 alt="TARGET_MAVERICKS"
 />
 
 Add TARGET_ELCAPTAIN=1 in the 10.11 one. </br>
 
-<img src="https://github.com/AppleBluetooth/VoodooUSBProvider/tree/master/Resources/TARGET_ELCAPTAIN.png"
+<img src="https://raw.githubusercontent.com/AppleBluetooth/VoodooUSBProvider/master/Resources/TARGET_ELCAPTAIN.png"
 alt="TARGET_ELCAPTAIN"
 />
 
 Add TARGET_CATALINA=1 in the 10.15 one. </br>
 
-<img src="https://github.com/AppleBluetooth/VoodooUSBProvider/tree/master/Resources/TARGET_CATALINA.png"
+<img src="https://raw.githubusercontent.com/AppleBluetooth/VoodooUSBProvider/master/Resources/TARGET_CATALINA.png"
 alt="TARGET_CATALINA"
 />
 
@@ -35,7 +35,7 @@ alt="TARGET_CATALINA"
         #include <VoodooUSBProvider.h>
 or with
 
-        #include "VoodooUSBProvider.h"
+      #include "VoodooUSBProvider.h"
 depending on if you have done step 3 or not. </br>
 7. In places where you would originally use IOUSBHostDevice * or IOUSBDevice *, use VoodooUSBDevice *. Similarly for VoodooUSBInterface * and VoodooUSBPipe *. </br>
 8. Enjoy 😎 </br>
