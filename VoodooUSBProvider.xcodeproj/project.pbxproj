@@ -26,6 +26,7 @@
 		BC7D416A25EB3684002ABF23 /* VoodooUSBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D409825E4A97C002ABF23 /* VoodooUSBCommon.h */; };
 		BC7D416B25EB3695002ABF23 /* VoodooUSBInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D413E25EA3939002ABF23 /* VoodooUSBInterface.h */; };
 		BC7D416C25EB3695002ABF23 /* VoodooUSBPipe.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D414B25EA3A36002ABF23 /* VoodooUSBPipe.h */; };
+		BCD9EF8E25EB3F6B0020FB30 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BCD9EF8D25EB3F6B0020FB30 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		BC7D415225EA3A58002ABF23 /* VoodooUSBHostPipe.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooUSBHostPipe.cpp; sourceTree = "<group>"; };
 		BC7D415A25EA8C80002ABF23 /* VoodooUSBProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoodooUSBProvider.h; sourceTree = "<group>"; };
 		BC7D415E25EA8E2E002ABF23 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		BCD9EF8D25EB3F6B0020FB30 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +79,10 @@
 		BC7D407F25E4A880002ABF23 = {
 			isa = PBXGroup;
 			children = (
+				BCD9EF8D25EB3F6B0020FB30 /* .gitignore */,
 				BC7D415E25EA8E2E002ABF23 /* LICENSE */,
 				BC7D410B25E6A05A002ABF23 /* README.md */,
+				BCD9EF8F25EB41C80020FB30 /* Resources */,
 				BC7D409C25E4ACC9002ABF23 /* MacKernelSDK */,
 				BC7D408B25E4A880002ABF23 /* VoodooUSBProvider */,
 				BC7D408A25E4A880002ABF23 /* Products */,
@@ -136,6 +140,13 @@
 				BC7D415225EA3A58002ABF23 /* VoodooUSBHostPipe.cpp */,
 			);
 			path = VoodooUSBPipe;
+			sourceTree = "<group>";
+		};
+		BCD9EF8F25EB41C80020FB30 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCD9EF8E25EB3F6B0020FB30 /* .gitignore in Resources */,
 				BC7D415F25EA8E2E002ABF23 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

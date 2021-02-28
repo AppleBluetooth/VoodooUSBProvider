@@ -9,8 +9,6 @@
 #ifndef VoodooUSBProvider_H
 #define VoodooUSBProvider_H
 
-#include "VoodooUSBPipe.h"
-#include "VoodooUSBInterface.h"
 #include "VoodooUSBDevice.h"
 
 #endif /* VoodooUSBProvider_H */
