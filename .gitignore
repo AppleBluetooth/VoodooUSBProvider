@@ -1,0 +1,7 @@
+.DS_Store
+xcshareddata
+xcuserdata
+project.xcworkspace
+DerivedData
+MacKernelSDK
+build
