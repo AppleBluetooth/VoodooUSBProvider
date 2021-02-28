@@ -9,7 +9,6 @@
 #ifndef VoodooUSBInterface_H
 #define VoodooUSBInterface_H
 
-#include "VoodooUSBCommon.h"
 #include "VoodooUSBPipe.h"
 
 class VoodooUSBInterface : public USBInterface
