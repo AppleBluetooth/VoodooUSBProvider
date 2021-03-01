@@ -119,9 +119,9 @@
 			isa = PBXGroup;
 			children = (
 				BC7D413425E88C2F002ABF23 /* VoodooUSBDevice.h */,
+				BC3AAF8B25ED147E000B1D63 /* VoodooUSBDeviceCommon.cpp */,
 				BC7D413325E88C2F002ABF23 /* VoodooUSBDevice.cpp */,
 				BC7D413725E88C52002ABF23 /* VoodooUSBHostDevice.cpp */,
-				BC3AAF8B25ED147E000B1D63 /* VoodooUSBDeviceCommon.cpp */,
 			);
 			path = VoodooUSBDevice;
 			sourceTree = "<group>";
@@ -130,9 +130,9 @@
 			isa = PBXGroup;
 			children = (
 				BC7D413E25EA3939002ABF23 /* VoodooUSBInterface.h */,
+				BC3AAF8D25ED1D4F000B1D63 /* VoodooUSBInterfaceCommon.cpp */,
 				BC7D413D25EA3939002ABF23 /* VoodooUSBInterface.cpp */,
 				BC7D414525EA3950002ABF23 /* VoodooUSBHostInterface.cpp */,
-				BC3AAF8D25ED1D4F000B1D63 /* VoodooUSBInterfaceCommon.cpp */,
 			);
 			path = VoodooUSBInterface;
 			sourceTree = "<group>";

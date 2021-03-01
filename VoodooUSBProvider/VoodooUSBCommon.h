@@ -83,26 +83,13 @@
 
 typedef unsigned char VendorState;
 
-/* Ath3K request values */
-#define ATH3K_DNLOAD                0x01
+/* Ath3K request */
+
 #define ATH3K_SET_NORMAL_MODE       0x07
 #define ATH3K_SWITCH_VID_PID        0x0a
 
 #define ATH3K_MODE_MASK             0x3F
 #define ATH3K_NORMAL_MODE           0x0E
-
-#define ATH3K_PATCH_UPDATE          0x80
-#define ATH3K_SYSCFG_UPDATE         0x40
-
-#define ATH3K_XTAL_FREQ_26M         0x00
-#define ATH3K_XTAL_FREQ_40M         0x01
-#define ATH3K_XTAL_FREQ_19P2        0x02
-#define ATH3K_NAME_LEN              0xFF
-
-#define BULK_SIZE                   4096
-#define FW_HDR_SIZE                 20
-#define TIMEGAP_USEC_MIN            50
-#define TIMEGAP_USEC_MAX            100
 
 struct Ath3KVersion
 {
@@ -112,16 +99,7 @@ struct Ath3KVersion
     UInt8     refClock;
 } __packed;
 
-/* QCA request values */
-#define QCA_DFU_PACKET_LEN          4096
-
-#define QCA_DFU_DOWNLOAD            0x01
-
-#define QCA_SYSCFG_UPDATED          0x40
-#define QCA_PATCH_UPDATED           0x80
-#define QCA_DFU_TIMEOUT             3000
-#define QCA_FLAG_MULTI_NVM          0x80
-
+/* QCA request */
 struct QCADeviceInfo
 {
     UInt32       romVersion;
