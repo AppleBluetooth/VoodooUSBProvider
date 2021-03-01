@@ -10,19 +10,6 @@
 
 OSDefineMetaClassAndAbstractStructors(VoodooUSBInterface, USBInterface)
 
-inline bool VoodooUSBInterface::open(IOService * forClient, IOOptionBits options, void * arg)
-{
-    return super::open(forClient, options, arg);
-}
-
-inline void VoodooUSBInterface::close(IOService * forClient, IOOptionBits options)
-{
-    if (isOpen(forClient))
-    {
-        super::close(forClient, options);
-    }
-}
-
 inline UInt8 VoodooUSBInterface::getInterfaceNumber()
 {
     return super::getInterfaceDescriptor()->bInterfaceNumber;
@@ -62,7 +49,7 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
     
     while ((ep = StandardUSB::getNextEndpointDescriptor(configDesc, ifaceDesc, ep)))
     {
-        // check if endpoint matches type and direction
+        // Check if endpoint matches type and direction
         UInt8 epDirection = StandardUSB::getEndpointDirection(ep);
         UInt8 epType      = StandardUSB::getEndpointType(ep);
         VoodooUSBInfoLog("findPipe() - Endpoint found! epDirection = %d, epType = %d\n", epDirection, epType);
@@ -70,7 +57,7 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
         {
             VoodooUSBDebugLog("findPipe() - Found matching endpoint!\n");
             
-            // matches... try to make a pipe from the endpoint address
+            // Try to make a pipe from the endpoint address after it is matched
             tempPipe = super::copyPipe(StandardUSB::getEndpointAddress(ep));
             if (!tempPipe)
             {
@@ -78,7 +65,6 @@ bool VoodooUSBInterface::findPipe(VoodooUSBPipe * pipe, UInt8 type, UInt8 direct
                 return false;
             }
             
-            // set it in the pipe
             setPipe(pipe, tempPipe);
             OSSafeReleaseNULL(tempPipe);
             return true;

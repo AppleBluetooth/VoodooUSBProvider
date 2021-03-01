@@ -15,9 +15,9 @@ class VoodooUSBPipe : public USBPipe
 {
     typedef USBPipe super;
     
-public:
     OSDeclareDefaultStructors(VoodooUSBPipe)
     
+public:
     IOReturn abort();
     
     IOReturn read(IOMemoryDescriptor * buffer, UInt32 noDataTimeout, UInt32 completionTimeout, IOByteCount reqCount, USBCompletion * completion = 0, IOByteCount * bytesRead = 0);

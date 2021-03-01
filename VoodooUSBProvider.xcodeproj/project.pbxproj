@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC3AAF8C25ED147E000B1D63 /* VoodooUSBDeviceCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC3AAF8B25ED147E000B1D63 /* VoodooUSBDeviceCommon.cpp */; };
 		BC7D40B025E61AE6002ABF23 /* VoodooUSBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D409825E4A97C002ABF23 /* VoodooUSBCommon.h */; };
 		BC7D40C225E61D11002ABF23 /* VoodooUSBCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = BC7D409825E4A97C002ABF23 /* VoodooUSBCommon.h */; };
 		BC7D413525E88C2F002ABF23 /* VoodooUSBDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC7D413325E88C2F002ABF23 /* VoodooUSBDevice.cpp */; };
@@ -30,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC3AAF8B25ED147E000B1D63 /* VoodooUSBDeviceCommon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooUSBDeviceCommon.cpp; sourceTree = "<group>"; };
+		BC3AAF8D25ED1D4F000B1D63 /* VoodooUSBInterfaceCommon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooUSBInterfaceCommon.cpp; sourceTree = "<group>"; };
 		BC7D408925E4A880002ABF23 /* VoodooUSBProvider15.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooUSBProvider15.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7D409825E4A97C002ABF23 /* VoodooUSBCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoodooUSBCommon.h; sourceTree = "<group>"; };
 		BC7D409C25E4ACC9002ABF23 /* MacKernelSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MacKernelSDK; sourceTree = "<group>"; };
@@ -118,6 +121,7 @@
 				BC7D413425E88C2F002ABF23 /* VoodooUSBDevice.h */,
 				BC7D413325E88C2F002ABF23 /* VoodooUSBDevice.cpp */,
 				BC7D413725E88C52002ABF23 /* VoodooUSBHostDevice.cpp */,
+				BC3AAF8B25ED147E000B1D63 /* VoodooUSBDeviceCommon.cpp */,
 			);
 			path = VoodooUSBDevice;
 			sourceTree = "<group>";
@@ -128,6 +132,7 @@
 				BC7D413E25EA3939002ABF23 /* VoodooUSBInterface.h */,
 				BC7D413D25EA3939002ABF23 /* VoodooUSBInterface.cpp */,
 				BC7D414525EA3950002ABF23 /* VoodooUSBHostInterface.cpp */,
+				BC3AAF8D25ED1D4F000B1D63 /* VoodooUSBInterfaceCommon.cpp */,
 			);
 			path = VoodooUSBInterface;
 			sourceTree = "<group>";
@@ -317,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC7D415725EA3E11002ABF23 /* VoodooUSBHostDevice.cpp in Sources */,
+				BC3AAF8C25ED147E000B1D63 /* VoodooUSBDeviceCommon.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +395,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -441,6 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -458,7 +466,7 @@
 					"TARGET_CATALINA=1",
 					"DEBUG=1",
 				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
@@ -478,7 +486,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_CATALINA=1";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
@@ -501,7 +509,7 @@
 					"TARGET_MAVERICKS=1",
 					"DEBUG=1",
 				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
@@ -521,7 +529,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_MAVERICKS=1";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
@@ -544,7 +552,7 @@
 					"TARGET_ELCAPITAN=1",
 					"DEBUG=1",
 				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
@@ -564,7 +572,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_ELCAPITAN=1";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/MacKernelSDK/Headers\"";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "";
 				KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MacKernelSDK/Headers";
 				KERNEL_FRAMEWORK_HEADERS = "$(PROJECT_DIR)/MacKernelSDK/Headers";

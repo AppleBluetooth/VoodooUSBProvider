@@ -15,9 +15,9 @@ class VoodooUSBInterface : public USBInterface
 {
     typedef USBInterface super;
     
-public:
     OSDeclareDefaultStructors(VoodooUSBInterface)
     
+public:
     virtual bool open(IOService * forClient, IOOptionBits options = 0, void * arg = 0) override;
     virtual void close(IOService * forClient, IOOptionBits options = 0) override;
     

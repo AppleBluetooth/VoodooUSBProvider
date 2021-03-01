@@ -10,19 +10,6 @@
 
 OSDefineMetaClassAndAbstractStructors(VoodooUSBInterface, USBInterface)
 
-inline bool VoodooUSBInterface::open(IOService * forClient, IOOptionBits options, void * arg)
-{
-    return super::open(forClient, options, arg);
-}
-
-inline void VoodooUSBInterface::close(IOService * forClient, IOOptionBits options)
-{
-    if (isOpen(forClient))
-    {
-        super::close(forClient, options);
-    }
-}
-
 inline UInt8 VoodooUSBInterface::getInterfaceNumber()
 {
     return super::GetInterfaceNumber();

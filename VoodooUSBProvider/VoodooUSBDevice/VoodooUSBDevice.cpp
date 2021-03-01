@@ -10,19 +10,6 @@
 
 OSDefineMetaClassAndAbstractStructors(VoodooUSBDevice, USBDevice)
 
-inline bool VoodooUSBDevice::open(IOService * forClient, IOOptionBits options, void * arg)
-{
-    return super::open(forClient, options, arg);
-}
-
-inline void VoodooUSBDevice::close(IOService * forClient, IOOptionBits options)
-{
-    if (isOpen(forClient))
-    {
-        super::close(forClient, options);
-    }
-}
-
 inline UInt16 VoodooUSBDevice::getVendorID()
 {
     return super::GetVendorID();
@@ -74,6 +61,21 @@ inline IOReturn VoodooUSBDevice::setConfiguration(IOService * forClient, UInt8 c
     return super::SetConfiguration(forClient, configValue, startInterfaceMatching);
 }
 
+inline UInt8 VoodooUSBDevice::getManufacturerStringIndex()
+{
+    return super::GetManufacturerStringIndex();
+}
+
+inline UInt8 VoodooUSBDevice::getProductStringIndex()
+{
+    return super::GetProductStringIndex();
+}
+
+inline UInt8 VoodooUSBDevice::getSerialNumberStringIndex()
+{
+    return super::GetSerialNumberStringIndex();
+}
+
 bool VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
 {
     VoodooUSBFuncLog("findFirstInterface");
@@ -91,21 +93,6 @@ bool VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
     IOService * result = interface;
     VoodooUSBInfoLog("findFirstInterface() - getInterface returns %p.\n", result);
     return result;
-}
-
-inline UInt8 VoodooUSBDevice::getManufacturerStringIndex()
-{
-    return super::GetManufacturerStringIndex();
-}
-
-inline UInt8 VoodooUSBDevice::getProductStringIndex()
-{
-    return super::GetProductStringIndex();
-}
-
-inline UInt8 VoodooUSBDevice::getSerialNumberStringIndex()
-{
-    return super::GetSerialNumberStringIndex();
 }
 
 IOReturn VoodooUSBDevice::sendRequest(IOService * forClient, UInt8 bRequest, void * dataBuffer, UInt16 size, UInt8 direction, UInt8 type, UInt8 recipient)

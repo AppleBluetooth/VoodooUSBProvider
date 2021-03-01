@@ -90,49 +90,6 @@ inline IOReturn VoodooUSBDevice::setConfiguration(IOService * forClient, UInt8 c
     return super::setConfiguration(configValue, startInterfaceMatching);
 }
 
-bool VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
-{
-    VoodooUSBFuncLog("findFirstInterface");
-    
-    OSIterator * iterator = super::getChildIterator(gIOServicePlane);
-    
-    if (!iterator)
-    {
-        return NULL;
-    }
-    
-    IOUSBHostInterface * tempInterface;
-    
-    while (1)
-    {
-        if ((tempInterface = OSDynamicCast(IOUSBHostInterface, iterator->getNextObject())))
-        {
-            setInterface(interface, tempInterface);
-            OSSafeReleaseNULL(tempInterface);
-            break;
-        }
-    }
-    
-    OSSafeReleaseNULL(iterator);
-
-    IOService * result = interface;
-    VoodooUSBInfoLog("findFirstInterface() - getInterface() returns %p.\n", result);
-    return result;
-}
-
-inline bool VoodooUSBDevice::open(IOService * forClient, IOOptionBits options, void *arg)
-{
-    return super::open(forClient, options, arg);
-}
-
-inline void VoodooUSBDevice::close(IOService * forClient, IOOptionBits options)
-{
-    if (isOpen(forClient))
-    {
-        super::close(forClient, options);
-    }
-}
-
 inline UInt8 VoodooUSBDevice::getManufacturerStringIndex()
 {
     return super::getDeviceDescriptor()->iManufacturer;
@@ -146,6 +103,34 @@ inline UInt8 VoodooUSBDevice::getProductStringIndex()
 inline UInt8 VoodooUSBDevice::getSerialNumberStringIndex()
 {
     return super::getDeviceDescriptor()->iSerialNumber;
+}
+
+bool VoodooUSBDevice::findFirstInterface(VoodooUSBInterface * interface)
+{
+    VoodooUSBFuncLog("findFirstInterface");
+    
+    OSIterator * iterator = super::getChildIterator(gIOServicePlane);
+    
+    if (!iterator)
+    {
+        return NULL;
+    }
+    
+    while (1)
+    {
+        setInterface(interface, OSDynamicCast(IOUSBHostInterface, iterator->getNextObject()));
+        
+        if (interface)
+        {
+            break;
+        }
+    }
+    
+    OSSafeReleaseNULL(iterator);
+
+    IOService * result = interface;
+    VoodooUSBInfoLog("findFirstInterface() - getInterface() returns %p.\n", result);
+    return result;
 }
 
 IOReturn VoodooUSBDevice::sendRequest(IOService * forClient, UInt8 bRequest, void * dataBuffer, UInt16 size, UInt8 direction, UInt8 type, UInt8 recipient)
