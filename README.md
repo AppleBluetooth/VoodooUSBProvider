@@ -4,7 +4,8 @@
 Developing a Qualcomm Bluetooth kernel extension for macOS recently, I realized how "terrible" the original bluetooth provider (IOUSBHostController) is - it has barely any compatibility for systems older than El Captain and many functions require wrapping up (AKA it is leaving too much space for developers, which is inconvenient). The purpose of this project is to provide an enhanced macOS bluetooth provider based on the apple one, in order to avoid certain trivial works being redone repeatedly.
 
 ## Requirements
-To use this project, MacKernelSDK is needed as apple has removed a lot of code supporting older systems. See the acidanthera project for more details.
+1. Compile with Xcode. </br>
+2. Use MacKernelSDK. See its README for more info. </br>
 
 ## How to use?
 1. Copy the VoodooUSBProvider folder to the directory of your repository. </br>
