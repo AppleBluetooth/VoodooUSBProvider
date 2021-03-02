@@ -27,10 +27,10 @@ Add TARGET_CATALINA=1 in the 10.15 one. </br>
 
 6. Include the codes of this project with 
 
-    #include <VoodooUSBProvider.h>
+        #include <VoodooUSBProvider.h>
 or with
 
-    #include "VoodooUSBProvider.h"
+       #include "VoodooUSBProvider.h"
 depending on whether you have completed step 3 or not. </br>
 7. In places where you would originally use IOUSBHostDevice * or IOUSBDevice *, use VoodooUSBDevice * instead. Similarly for VoodooUSBInterface * and VoodooUSBPipe *. </br>
 8. Enjoy 😎 </br>
